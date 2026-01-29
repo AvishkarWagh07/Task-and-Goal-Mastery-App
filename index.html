@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="topbar">
+                <h1 class="mainheading">Task & Goal Mastery</h1>
+                <div class="quickstats">
+                    <div class="statbox">
+                        <div class="number" id="totalTasks">0</div>
+                        <div class="label">Total Tasks</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="number" id="completedTasks">0</div>
+                        <div class="label">Completed</div>
+                    </div>
+                    <div class="statbox">
+                        <div class="number" id="completionRate">0%</div>
+                        <div class="label">Completion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrapper">
+        <div class="layout">
+            <div>
+                <div class="box">
+                    <div class="boxtop">
+                        <h2 class="heading">Tasks</h2>
+                        <button class="button primary" id="addTaskBtn">+ Add Task</button>
+                    </div>
+
+                    <div class="tasktabs">
+                        <button class="tabbtn active" data-tab="all-tasks">All</button>
+                        <button class="tabbtn" data-tab="pending-tasks">Pending</button>
+                        <button class="tabbtn" data-tab="completed-tasks">Completed</button>
+                    </div>
+
+                    <div id="all-tasks" class="tabpanel active">
+                        <div class="taskswrapper" id="allTasksList">
+                            <div class="noitems">
+                                <div class="icon">📋</div>
+                                <div class="msg">No tasks yet. Add one to get started!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="pending-tasks" class="tabpanel">
+                        <div class="taskswrapper" id="pendingTasksList">
+                            <div class="noitems">
+                                <div class="icon">✓</div>
+                                <div class="msg">All caught up!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="completed-tasks" class="tabpanel">
+                        <div class="taskswrapper" id="completedTasksList">
+                            <div class="noitems">
+                                <div class="icon">🎯</div>
+                                <div class="msg">No completed tasks yet.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="box" style="margin-bottom: 25px;">
+                    <div class="boxtop">
+                        <h2 class="heading">Goals</h2>
+                        <button class="button primary small" id="addGoalBtn">+ Goal</button>
+                    </div>
+                    <div id="goalsList">
+                        <div class="noitems">
+                            <div class="icon">🎯</div>
+                            <div class="msg">Set your first goal!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="boxtop">
+                        <h2 class="heading">Daily Habits</h2>
+                        <button class="button primary small" id="addHabitBtn">+ Habit</button>
+                    </div>
+                    <div id="habitsList">
+                        <div class="noitems">
+                            <div class="icon">✨</div>
+                            <div class="msg">Build a habit!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="overlay" id="addTaskModal">
+        <div class="popup">
+            <div class="popupheader">Add New Task</div>
+            <div class="popupbody">
+                <div class="inputgroup">
+                    <label>Task Title</label>
+                    <input type="text" id="taskTitle" placeholder="Enter task title" />
+                </div>
+                <div class="inputgroup">
+                    <label>Description</label>
+                    <textarea id="taskDesc" placeholder="Task details (optional)" style="resize: vertical; min-height: 80px;"></textarea>
+                </div>
+                <div class="inputgroup">
+                    <label>Priority</label>
+                    <select id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="inputgroup">
+                    <label>Due Date</label>
+                    <input type="date" id="taskDueDate" />
+                </div>
+            </div>
+            <div class="popupfooter">
+                <button class="button secondary" id="cancelTaskBtn">Cancel</button>
+                <button class="button primary" id="saveTaskBtn">Add Task</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="addGoalModal">
+        <div class="popup">
+            <div class="popupheader">Set New Goal</div>
+            <div class="popupbody">
+                <div class="inputgroup">
+                    <label>Goal Title</label>
+                    <input type="text" id="goalTitle" placeholder="What do you want to achieve?" />
+                </div>
+                <div class="inputgroup">
+                    <label>Target Date</label>
+                    <input type="date" id="goalDeadline" />
+                </div>
+                <div class="inputgroup">
+                    <label>Description</label>
+                    <textarea id="goalDesc" placeholder="Goal details (optional)" style="resize: vertical; min-height: 80px;"></textarea>
+                </div>
+            </div>
+            <div class="popupfooter">
+                <button class="button secondary" id="cancelGoalBtn">Cancel</button>
+                <button class="button primary" id="saveGoalBtn">Add Goal</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay" id="addHabitModal">
+        <div class="popup">
+            <div class="popupheader">Start New Habit</div>
+            <div class="popupbody">
+                <div class="inputgroup">
+                    <label>Habit Name</label>
+                    <input type="text" id="habitName" placeholder="e.g., Exercise, Read, Meditate" />
+                </div>
+                <div class="inputgroup">
+                    <label>Target Days</label>
+                    <input type="number" id="habitDays" placeholder="e.g., 30" value="30" min="1" />
+                </div>
+            </div>
+            <div class="popupfooter">
+                <button class="button secondary" id="cancelHabitBtn">Cancel</button>
+                <button class="button primary" id="saveHabitBtn">Create Habit</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
